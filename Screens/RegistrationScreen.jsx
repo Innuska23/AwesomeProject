@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Keyboard } from "react-native";
-import { ButtonRegistation, ButtonShow, ButtonText, Container, ContainerText, FhotoWraper, Input, InputButton, Label, LinkText, PasswordWraper, Photo, ShowButton, Text, WrapperContainer, WrapperImage } from "./RegistrationScreen.styled";
+import { ButtonRegistation, ButtonShow, ButtonText, Container, ContainerText, FhotoWraper, Input, InputButton, Label, LinkText, LoginContainer, PasswordWraper, Photo, ShowButton, Text, WrapperContainer, WrapperImage } from "./RegistrationScreen.styled";
 
 export default RegistrationScreen = () => {
 

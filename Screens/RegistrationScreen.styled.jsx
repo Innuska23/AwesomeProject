@@ -1,7 +1,7 @@
 import styled, { css } from '@emotion/native'
 
 export const WrapperContainer = styled.View`
-    font-family: 'Roboto';
+    font-family: 'Roboto-Regular';
     width: 100%;
     height: 100%;
 
@@ -36,7 +36,6 @@ export const Container = styled.View`
     position: relative;
     width: 100%;
     left: 0px;
-    ${'' /* height: 100%; */}
     height: 549px;
     background-color: #FFFFFF;
     border-radius: 25px 25px 0px 0px;
@@ -45,10 +44,22 @@ export const Container = styled.View`
 
 `;
 
+export const LoginContainer = styled.View`
+    position: relative;
+    width: 100%;
+    left: 0px;
+    z-index: 1;
+    height: 489px
+    background-color: #FFFFFF;
+    border-radius: 25px 25px 0px 0px;
+    padding: 32px 16px 132px 16px; 
+`;
+
 export const ContainerText = styled.View`
     display: flex;
     justify-content: center;
     align-items: center;
+    ${'' /* fontFamily: 'Roboto-Medium'; */}
 `;
 
 export const Text = styled.Text`
@@ -60,17 +71,17 @@ export const Text = styled.Text`
 `;
 
 export const Input = styled.TextInput`
-    &:nth-child(3) {
         width: 100%;
         font-weight: 400;
         line-height: 19px;
-        margin-bottom: 16px;
         height: 50px;
         background: #F6F6F6;
         border: 1px solid #E8E8E8;
         border-radius: 8px;
         padding: 16px 15px;
-}
+        :last-child{
+            margin-bottom: 16px;
+        }
 `;
 export const PasswordWraper = styled.View`
     position: relative;
