@@ -1,32 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 
 import RegistrationScreen from './Screens/RegistrationScreen';
 import LoginScreen from './Screens/LoginScreen';
+import styled from '@emotion/native';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    'Roboto-Regular': require('./assets/fonts/Roboto-Regular.otf'),
-    // 'Roboto-Medium': require('./assets/fonts/Roboto-Medium.otf'),
-    // 'Roboto-Bold': require('./assets/fonts//Roboto-Bold.otf'),
+    'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
+    'Roboto-Bold': require('./assets/fonts//Roboto-Bold.ttf'),
   });
 
-  // console.log(fontsLoaded);
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
-      <LoginScreen/>
+    <StyledApp>
+      {/* <LoginScreen /> */}
+      <RegistrationScreen />
+    </StyledApp>
   )
 };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+const StyledApp = styled.View`
+    font-family: 'Roboto-Regular';
+    width: 100%;
+    height: 100%;
+`
