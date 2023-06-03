@@ -1,46 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { Keyboard } from "react-native";
-import { ButtonRegistation, ButtonShow, ButtonText, Container, ContainerText, FhotoWraper, Input, InputButton, Label, LinkText, LoginContainer, PasswordWraper, Photo, ShowButton, Text, WrapperContainer, WrapperImage } from "./RegistrationScreen.styled";
+import React from "react";
+import { AuthLayout } from "../components/AuthLayout";
+import { StyledInput } from "../components/Input";
+import { PasswordInput } from "../components/PasswordInput";
+import { useKeyboard } from "../hooks/useKeyboard";
+import { ButtonRegistation, ButtonText, ContainerText, IconPlus, LinkText, Photo, PhotoWrapper, StyledWrapperText, Text } from "./componets.styled";
 
 export default RegistrationScreen = () => {
+    const { heightKeyboard } = useKeyboard();
 
-    const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+    return <AuthLayout heightKeyboard={heightKeyboard}>
+        <PhotoWrapper>
+            <Photo resizeMode="cover" />
+            <IconPlus source={require('../assets/images/add.png')} />
+        </PhotoWrapper>
 
-    useEffect(() => {
-        const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-            setIsKeyboardOpen(true);
-        });
-        const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-            setIsKeyboardOpen(false);
-        });
+        <ContainerText>
+            <Text>Реєстрація</Text>
+        </ContainerText>
 
-        return () => {
-            showSubscription.remove();
-            hideSubscription.remove();
-        };
-    }, []);
+        <StyledInput placeholder="Логін" $mb='32' />
 
-    return <WrapperContainer>
-        <WrapperImage source={require('./BG/PhotoBG.png')} resizeMode="cover">
+        <StyledInput placeholder="Адреса електронної пошти" />
 
-            <Container>
-            <FhotoWraper> 
-                <Photo resizeMode="cover" />
-            </FhotoWraper>
-                <ContainerText>
-                    <Text>Реєстрація</Text>
-                </ContainerText>
-                <Input placeholder="Логін" />
-                <Input placeholder="Адреса електронної пошти" />
-                <PasswordWraper>
-                    <Input placeholder="Пароль" />
-                    <ShowButton><Label>Показати</Label></ShowButton>
-                </PasswordWraper>
-                {!isKeyboardOpen && <><ButtonRegistation>
-                    <ButtonText>Зареєструватись</ButtonText>
-                </ButtonRegistation>
-                    <LinkText>Вже є акаунт? Увійти</LinkText></>}
-            </Container>
-        </WrapperImage>
-    </WrapperContainer>
+
+        <PasswordInput placeholder="Пароль" />
+
+        {!heightKeyboard && <>
+            <ButtonRegistation>
+                <ButtonText>Зареєструватись</ButtonText>
+            </ButtonRegistation>
+
+            <StyledWrapperText $mb="12">
+                <LinkText>Вже є акаунт? Увійти</LinkText>
+            </StyledWrapperText>
+        </>}
+    </AuthLayout>
 };
