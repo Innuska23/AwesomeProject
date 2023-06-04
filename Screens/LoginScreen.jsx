@@ -7,36 +7,39 @@ import { PasswordInput } from "../components/PasswordInput";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { ButtonRegistation, ButtonText, ContainerText, LinkText, StyledWrapperText, Text } from "./componets.styled";
 
+const initialState = {
+    email: "",
+    password: "",
+}
+
 export default RegistrationScreen = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [user, setUser] = useState(initialState);
 
     const { heightKeyboard } = useKeyboard();
 
-    const handlePasswordChange = (text) => {
-        setPassword(text);
+    const handleFieldChange = (fieldName) => (text) => {
+        setUser((prevState) => ({
+            ...prevState,
+            [fieldName]: text,
+        }));
     };
-    
-    const handleEmailChange = (text) => {
-        setEmail(text);
-    };
-    
 
-    return <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <AuthLayout heightKeyboard={heightKeyboard}>
+    const handleSignUp = () => {
+        console.log(user);
+        setUser(initialState)
+    };
+
+    return <AuthLayout heightKeyboard={heightKeyboard}>
             <ContainerText>
                 <Text>Увійти</Text>
             </ContainerText>
 
-            <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                <StyledInput placeholder="Адреса електронної пошти" $mt='32' value={user.email} onChangeText={handleFieldChange('email')} />
 
-            <StyledInput placeholder="Адреса електронної пошти" $mt='32' value={email} onChangeText={handleEmailChange} />
+                <PasswordInput placeholder="Пароль" value={user.password} onChangeText={handleFieldChange('password')} />
 
-            <PasswordInput placeholder="Пароль" value={password} onChangeText={handlePasswordChange} />
-            
-            </KeyboardAvoidingView>
             {!heightKeyboard && <>
-                <ButtonRegistation>
+                <ButtonRegistation onPress={handleSignUp}>
                     <ButtonText>Увійти</ButtonText>
                 </ButtonRegistation>
 
@@ -46,5 +49,4 @@ export default RegistrationScreen = () => {
                 </StyledWrapperText>
             </>}
         </AuthLayout>
-    </TouchableWithoutFeedback>
 };

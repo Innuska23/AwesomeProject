@@ -3,7 +3,6 @@ import React from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native';
 
 export const AuthLayout = ({ children, heightKeyboard }) => {
-    console.log("🚀 ~ file: AuthLayout.jsx:6 ~ AuthLayout ~ heightKeyboard:", parseFloat(heightKeyboard))
     return <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ContentWrapper>
             <BgImage source={require('../assets/images/bg.png')} resizeMode="cover" />

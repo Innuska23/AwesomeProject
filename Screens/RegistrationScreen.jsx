@@ -6,33 +6,25 @@ import { PasswordInput } from "../components/PasswordInput";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { ButtonRegistation, ButtonText, ContainerText, IconPlus, LinkText, Photo, PhotoWrapper, StyledWrapperText, Text } from "./componets.styled";
 
+const initialState = {
+    email: "",
+    password: "",
+}
+
 export default RegistrationScreen = () => {
     const { heightKeyboard } = useKeyboard();
-    const [user, setUser] = useState({
-        username: "",
-        email: "",
-        password: "",
-        avatar: "",
-    });
-    const handleUsernameChange = (text) => {
+    const [user, setUser] = useState(initialState);
+
+    const handleFieldChange = (fieldName) => (text) => {
         setUser((prevState) => ({
             ...prevState,
-            username: text,
+            [fieldName]: text,
         }));
     };
 
-    const handlePasswordChange = (text) => {
-        setUser((prevState) => ({
-            ...prevState,
-            password: text,
-        }));
-    };
-
-    const handleEmailChange = (text) => {
-        setUser((prevState) => ({
-            ...prevState,
-            email: text,
-        }));
+    const handleSignUp = () => {
+        console.log(user);
+        setUser(initialState);
     };
 
     return <AuthLayout heightKeyboard={heightKeyboard}>
@@ -46,15 +38,15 @@ export default RegistrationScreen = () => {
             <Text>Реєстрація</Text>
         </ContainerText>
 
-        <StyledInput placeholder="Логін" $mb='32' value={user.username} onChangeText={handleUsernameChange} />
-       
-        <StyledInput placeholder="Адреса електронної пошти" value={user.email} onChangeText={handleEmailChange} />
+        <StyledInput placeholder="Логін" $mb='32' value={user.username} onChangeText={handleFieldChange('username')} />
 
-        <PasswordInput placeholder="Пароль" value={user.password} onChangeText={handlePasswordChange} />
+        <StyledInput placeholder="Адреса електронної пошти" value={user.email} onChangeText={handleFieldChange('email')} />
+
+        <PasswordInput placeholder="Пароль" value={user.password} onChangeText={handleFieldChange('password')} />
 
 
         {!heightKeyboard && <>
-            <ButtonRegistation>
+            <ButtonRegistation onPress={handleSignUp}>
                 <ButtonText>Зареєструватись</ButtonText>
             </ButtonRegistation>
 
