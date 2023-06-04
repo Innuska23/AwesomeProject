@@ -43,7 +43,8 @@ export const ContainerText = styled.View`
     justify-content: center;
     align-items: center;
     fontFamily: 'Roboto-Medium';
-    margin-top: 60px;
+    margin-top: ${props => props.$mt ? `${props.$mt}px`: 0};
+    ${'' /* margin-top: 60px; */}
 `;
 
 export const Text = styled.Text`

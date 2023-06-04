@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View } from "react-native";
 import { AuthLayout } from "../components/AuthLayout";
 import { StyledInput } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
@@ -33,8 +32,7 @@ export default RegistrationScreen = () => {
             <IconPlus source={require('../assets/images/add.png')} />
         </PhotoWrapper>
 
-
-        <ContainerText>
+        <ContainerText $mt='60'>
             <Text>Реєстрація</Text>
         </ContainerText>
 
@@ -43,7 +41,6 @@ export default RegistrationScreen = () => {
         <StyledInput placeholder="Адреса електронної пошти" value={user.email} onChangeText={handleFieldChange('email')} />
 
         <PasswordInput placeholder="Пароль" value={user.password} onChangeText={handleFieldChange('password')} />
-
 
         {!heightKeyboard && <>
             <ButtonRegistation onPress={handleSignUp}>

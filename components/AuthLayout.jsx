@@ -39,13 +39,11 @@ const WrapperContainer = styled.View`
     height: 100%;
     width: 100%;
     justify-content: flex-end;
-    bottom: ${props => console.log(props.$bottom) || props.$bottom ? `${props.$bottom}px` : 0};
+    bottom: ${props =>  props.$bottom ? `${props.$bottom}px` : 0};
 `;
 
 const Container = styled.View`
-    ${'' /* position: relative; */}
     width: 100%;
-    ${'' /* justify-content: flex-end; */}
     z-index: 1;
     background-color: #FFFFFF;
     border-radius: 25px 25px 0px 0px;

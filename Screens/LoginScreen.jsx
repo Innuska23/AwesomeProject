@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
 import { AuthLayout } from "../components/AuthLayout";
 import { StyledInput } from "../components/Input";
 import { StyledLink } from "../components/Link";
@@ -34,9 +33,9 @@ export default RegistrationScreen = () => {
                 <Text>Увійти</Text>
             </ContainerText>
 
-                <StyledInput placeholder="Адреса електронної пошти" $mt='32' value={user.email} onChangeText={handleFieldChange('email')} />
+            <StyledInput placeholder="Адреса електронної пошти" $mt='32' value={user.email} onChangeText={handleFieldChange('email')} />
 
-                <PasswordInput placeholder="Пароль" value={user.password} onChangeText={handleFieldChange('password')} />
+            <PasswordInput placeholder="Пароль" value={user.password} onChangeText={handleFieldChange('password')} />
 
             {!heightKeyboard && <>
                 <ButtonRegistation onPress={handleSignUp}>
