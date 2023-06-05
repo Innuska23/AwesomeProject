@@ -11,6 +11,10 @@ import { ButtonHome, ButtonLogOut, TextItem } from "./Home.styled";
 const Tabs = createBottomTabNavigator();
 
 const NavigationConfig = {
+    headerStyle: {
+        borderBottomWidth: 1,
+        borderColor: "#E5E5E5",
+    },
     headerTitleAlign: "center",
     tabBarShowLabel: false,
     tabBarActiveBackgroundColor: "#FF6C00",

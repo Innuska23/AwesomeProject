@@ -6,7 +6,7 @@ export default function PostsScreen({}) {
     return (
         <ContainerPostScreen>
             <WrapperPostScreen>
-                <AvatarPost/>
+                {/* <AvatarPost/> */}
                 {/* <WrapperEmailBox> */}
                     <NamePost>Ім'я</NamePost>
                     <EmailPost>Email</EmailPost>

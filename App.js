@@ -49,4 +49,4 @@ const StyledApp = styled.View`
     font-family: 'Roboto-Regular';
     width: 100%;
     height: 100%;
-`
+`;
