@@ -5,6 +5,7 @@ import { StyledLink } from "../components/Link";
 import { PasswordInput } from "../components/PasswordInput";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { ButtonRegistation, ButtonText, ContainerText, LinkText, StyledWrapperText, Text } from "./componets.styled";
+import { useNavigation } from '@react-navigation/native';
 
 const initialState = {
     email: "",
@@ -12,6 +13,7 @@ const initialState = {
 }
 
 export default RegistrationScreen = () => {
+    const navigation = useNavigation();
     const [user, setUser] = useState(initialState);
 
     const { heightKeyboard } = useKeyboard();
@@ -24,8 +26,12 @@ export default RegistrationScreen = () => {
     };
 
     const handleSignUp = () => {
-        console.log(user);
-        setUser(initialState)
+        navigation.navigate("Home", {
+            screen: "PostsScreen",
+            params: {
+            user: user,
+            },
+        });
     };
 
     return <AuthLayout heightKeyboard={heightKeyboard}>
@@ -44,7 +50,7 @@ export default RegistrationScreen = () => {
 
                 <StyledWrapperText $mb='46'>
                     <LinkText>Немає акаунту? </LinkText>
-                    <StyledLink>Зареєструватися</StyledLink>
+                    <StyledLink onPress={() => navigation.navigate("Registration")}>Зареєструватися </StyledLink>
                 </StyledWrapperText>
             </>}
         </AuthLayout>

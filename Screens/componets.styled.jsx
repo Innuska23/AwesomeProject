@@ -77,6 +77,12 @@ export const LinkText = styled.Text`
     text-align: center;
     color: #1B4371;
 `;
+export const TextAutorization = styled.Text`
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #1B4371;
+`;
 
 export const StyledWrapperText = styled.View`
     display: flex;

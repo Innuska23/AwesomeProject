@@ -1,7 +1,7 @@
 import styled from "@emotion/native";
 
-export const StyledLink = ({ children }) => {
-    return <StyledTouchableOpacity>
+export const StyledLink = ({ children, ...rest}) => {
+    return <StyledTouchableOpacity {...rest}>
         <StyledText>{children}</StyledText>
     </StyledTouchableOpacity>
 }
