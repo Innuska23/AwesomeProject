@@ -1,18 +1,17 @@
-import { View, StyleSheet, Text } from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
+import {AvatarPost, ContainerPostScreen, EmailPost, NamePost, WrapperEmailBox, WrapperPostScreen } from './PostScreen.styled';
 
-const PostScreen = () => {
+export default function PostsScreen({}) {
     return (
-        <View style={styles.container}>
-            <Text> PostS creen </Text>
-        </View>
+        <ContainerPostScreen>
+            <WrapperPostScreen>
+                <AvatarPost/>
+                {/* <WrapperEmailBox> */}
+                    <NamePost>Ім'я</NamePost>
+                    <EmailPost>Email</EmailPost>
+                {/* </WrapperEmailBox> */}
+            </WrapperPostScreen>
+            </ContainerPostScreen>
     );
-};
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-});
-
-export default PostScreen;
+}
