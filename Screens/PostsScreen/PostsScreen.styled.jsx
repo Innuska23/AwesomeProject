@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 
 export const ContainerPostScreen = styled.View `
     font-family: 'Roboto-Regular';
-    padding: 16px 32px;
+    ${'' /* padding: 16px 32px; */}
     width: 100%;
     height: 100%;
     display: flex;

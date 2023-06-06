@@ -44,7 +44,6 @@ export const ContainerText = styled.View`
     align-items: center;
     fontFamily: 'Roboto-Medium';
     margin-top: ${props => props.$mt ? `${props.$mt}px`: 0};
-    ${'' /* margin-top: 60px; */}
 `;
 
 export const Text = styled.Text`
