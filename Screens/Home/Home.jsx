@@ -1,12 +1,12 @@
 import React from "react";;
 import { Ionicons, Feather } from "@expo/vector-icons";
-import PostsScreen from "./PostsScreen";
-import CreatePostsScreen from "./CreatePostsScreen";
-import ProfileScreen from "./ProfileScreen";
+import PostsScreen from "../PostsScreen/PostsScreen";
+import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
+import ProfileScreen from "../ProfileScreen";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { ButtonHome, ButtonLogOut, TextItem } from "./Home.styled";
+import { ButtonHome, ButtonLogOut, TextItem } from "../Home/Home.styled";
 
 const Tabs = createBottomTabNavigator();
 

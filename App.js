@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import RegistrationScreen from './Screens/RegistrationScreen';
 import LoginScreen from './Screens/LoginScreen';
 import styled from '@emotion/native';
-import Home from './Screens/Home';
+import Home from './Screens/Home/Home';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
