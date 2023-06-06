@@ -7,6 +7,7 @@ import RegistrationScreen from './Screens/RegistrationScreen';
 import LoginScreen from './Screens/LoginScreen';
 import styled from '@emotion/native';
 import Home from './Screens/Home/Home';
+import MapScreen from './Screens/MapScreen/MapScreen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -37,6 +38,11 @@ export default function App() {
           <MainStack.Screen
             name="Home"
             component={Home}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="MapScreen"
+            component={MapScreen}
             options={{ headerShown: false }}
           />
         </MainStack.Navigator>
