@@ -3,8 +3,8 @@ import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 
 export const CreateContainer = styled.View`
-    flex: 1,
-    background-color: '#FFFFFF',
+    flex: 1;
+    background-color: '#FFFFFF';
     padding: 32px 16px;
 `;
 
@@ -38,8 +38,8 @@ export const InputIcon = styled(Ionicons)`
 `; 
 
 export const PhotoImg = styled.Image`
-    width: 100%,
-    height: 100%,
+    width: 100%;
+    height: 100%;
 `;
 
 export const Photo = styled.View`
@@ -75,11 +75,12 @@ export const ButtonCreateText = styled.Text`
     font-size: 16px;
     text-align: center;
     padding-vertical: 16px;
-    // color: photo ? '#FFFFFF' : '#BDBDBD'
+    color: ${(props) => props.$isDisabled ? '#BDBDBD' : '#FFFFFF'}
 `;
 
 export const ButtonCreate = styled.TouchableOpacity`
     margin-horizontal: 16px;
     margin-top: 32px;
     border-radius: 100px;
+    background-color: ${(props) => props.$isDisabled ? '#F6F6F6' :  '#FF6C00'} ;
 `;

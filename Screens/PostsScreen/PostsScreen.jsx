@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {TouchableOpacity, FlatList} from 'react-native';
+import {TouchableOpacity, FlatList, Text, Image} from 'react-native';
 import {ContainerPostScreen, LocationText, Photo, PhotoContainer, PhotoName, NameEmailWrapper, Email, Name, WrapperPostScreen, AvatarPost, CommentContainer} from './PostsScreen.styled';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -8,9 +8,9 @@ export default function PostsScreen({ route, navigation }) {
 
     useEffect(() => {
         if (route.params) {
-            setPosts(prevState => [...prevState, route.params]);
+            setPosts(route.params?.posts ?? []);
         }
-    }, [route.params]);
+    }, [route.params?.posts]);
 
     return (
         <ContainerPostScreen>
@@ -24,10 +24,12 @@ export default function PostsScreen({ route, navigation }) {
             <FlatList
                 data={posts}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={item => (
+                renderItem={({photoBase64, coords, location, name}) => (
                     <PhotoContainer>
-                        <Photo source={{ uri: item.photo }}/>
-                        <PhotoName>Ліс</PhotoName>
+                        <Image source={{ uri: `data:image/jpg;base64,${photoBase64}`, width: 100, height: 100}} style={{height: 100, width: 100 }}/>
+
+                        <PhotoName>{name}</PhotoName>
+                        
                         <CommentContainer>
                             <TouchableOpacity
                                 onPress={() => {
@@ -39,11 +41,11 @@ export default function PostsScreen({ route, navigation }) {
                             <TouchableOpacity
                                 style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPress={() => {
-                                    navigation.navigate('MapScreen');
+                                    navigation.navigate('MapScreen', {coords});
                                 }}
                             >
                                 <Ionicons name="location-outline" size={24} color="#BDBDBD" />
-                                <LocationText></LocationText>
+                                <LocationText>{location}</LocationText>
                             </TouchableOpacity>
                         </CommentContainer>
                     </PhotoContainer>

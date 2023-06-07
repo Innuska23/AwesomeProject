@@ -1,73 +1,106 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { AddPhoto, ButtonCreate, ButtonCreateText, CameraCreate, CreateContainer, CreateInput, InputIcon, InputWrapper, Photo, PhotoImg, PhotoText } from './CreatePostsScreen.styled';
+import { Camera, CameraType } from 'expo-camera';
+import { Image, Text } from 'react-native';
 
-export default function CreatePostsScreen({ navigation }) {
-    const [camera, setCamera] = useState(null);
-    const [photo, setPhoto] = useState('');
+export default function CreatePostsScreen({ route, navigation }) {
+    const cameraRef= useRef(null);
+    const [photoBase64, setPhotoBase64] = useState(null);
+    const [name, setName] = useState(null);
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [coords, setCoords] = useState(null);
 
     const takePhoto = async () => {
-        const photos = await camera.takePictureAsync();
+        try {
+            if (cameraRef.current) {
+                const options = { quality: 0, base64: true, };
+                // photoUri && await cameraRef.current.resumePreview();
+                const data = await cameraRef.current.takePictureAsync(options);
+                setPhotoBase64(data.uri);
+
+                if (data.uri) {
+                // await cameraRef.current.pausePreview();
+                }
+            }
+
         const location = await Location.getCurrentPositionAsync();
-        console.log('latitude', location.coords.latitude);
-        console.log('longitude', location.coords.longitude);
-        setPhoto(photos.uri);
+        const [{city, country}] = await Location.reverseGeocodeAsync(location.coords);
+        
+        setLocation(`${city}, ${country}`)
+        setCoords(location.coords);
+
+        } catch (e) {
+            console.error(e)
+        }
+
     };
-    const sendPhoto = () => {
-        navigation.navigate('PostsScreen', { photo });
+
+    const handleSubmit = async () => {
+        const existPosts = route.params?.posts ?? [];
+        const newPost = {photoBase64,cords: {...coords}, location, name};;
+        setPhotoBase64(null);
+        setLocation(null)
+        setName(null);
+        // setCoords(null);
+
+        navigation.navigate('PostsScreen', {...route.params, posts: [...existPosts, newPost] });
     };
 
     useEffect(() => {
         (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            console.log(status);
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
-            }
+            try {
+                const {status: cameraPerm} = await Camera.requestCameraPermissionsAsync()
+                let { status: locationPerm } = await Location.requestForegroundPermissionsAsync();
 
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
+                if (cameraPerm !== 'granted' || locationPerm !== 'granted') {
+                    setErrorMsg('Permission to access location was denied');
+                    return;
+                }
+
+            } catch (e) {
+                console.error(e)
+            }
         })();
     }, []);
 
-    let text = 'Waiting..';
     if (errorMsg) {
-        text = errorMsg;
-    } else if (location) {
-        text = JSON.stringify(location);
+        return <Text>{errorMsg}</Text>
     }
+
+    const isDisabledSubmit = !photoBase64 || !location || !name
 
     return (
         <CreateContainer>
-            <CameraCreate ref={setCamera}>
-                {photo && (
-                    <Photo>
-                        <PhotoImg source={{ uri: photo }} />
-                        <AddPhoto onPress={takePhoto}>
-                            <Ionicons name="camera" size={24} color="#BDBDBD" />
-                        </AddPhoto>
-                    </Photo>
-                )}
-
-                <AddPhoto onPress={takePhoto}>
-                    <Ionicons name="camera" size={24} color="#BDBDBD" />
-                </AddPhoto>
+            <CameraCreate ref={cameraRef} type={CameraType.back}>
+                <Photo>
+                    <AddPhoto onPress={takePhoto}>
+                        <Ionicons name="camera" size={24} color="red" />
+                    </AddPhoto>
+                </Photo>
             </CameraCreate>
+
             <PhotoText>Завантажте фото</PhotoText>
+
+            {photoBase64 && <Image source={{uri: photoBase64, width: 100, height: 100}} />}
+
             <CreateInput
                 placeholder="Назва..."
                 placeholderTextColor="#BDBDBD"
                 marginTop={32}
+                onChangeText={setName}
+                value={name}
             />
+
             <InputWrapper>
                 <CreateInput
                     placeholder="Місцевість..."
                     placeholderTextColor="#BDBDBD"
                     paddingLeft={28}
+                    onChangeText={setLocation}
+                    value={location}
                 />
                 <InputIcon
                     name="location-outline"
@@ -77,13 +110,12 @@ export default function CreatePostsScreen({ navigation }) {
             </InputWrapper>
 
             <ButtonCreate 
-            // {backgroundColor: photo ? '#FF6C00' : '#F6F6F6',}
                 activeOpacity={0.7}
-                onPress={sendPhoto}
+                onPress={handleSubmit}
+                disabled={isDisabledSubmit}
+                $isDisabled={isDisabledSubmit}
             >
-                <ButtonCreateText
-                        // color: photo ? '#FFFFFF' : '#BDBDBD'
-                >
+                <ButtonCreateText>
                     Опублікувати
                 </ButtonCreateText>
             </ButtonCreate>

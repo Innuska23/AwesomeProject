@@ -32,8 +32,9 @@ export const PhotoName = styled.Text`
 `;
 
 export const Photo = styled.Image`
-    background-color: black;
+    /* background-color: black; */
     height: 240px;
+    width: 100px;
     `;
 
 export const NameEmailWrapper= styled.View`

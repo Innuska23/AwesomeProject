@@ -7,14 +7,14 @@ export default function MapScreen() {
         <MapContainer>
             <MapViews
                 initialRegion={{
-                    latitude: 48.9731,
-                    longitude: 23.9836,
+                    latitude: 49.589542,
+                    longitude: 34.551273,
                     latitudeDelta: 0.01,
                     longitudeDelta: 0.06,
                 }}
             >
                 <Marker
-                    coordinate={{ latitude: 48.9731, longitude: 23.9836 }}
+                    coordinate={{latitude: 49.589542, longitude: 34.551273}}
                     title="travel photo"
                 />
             </MapViews>
