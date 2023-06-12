@@ -5,6 +5,10 @@ import { AddPhoto, ButtonCreate, ButtonCreateText, CameraCreate, CreateContainer
 import { Camera, CameraType } from 'expo-camera';
 import { Image, Text } from 'react-native';
 
+// import { storage, database } from "../../firebase/config";
+// import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { ref as refDb, set, push } from "firebase/database";
+
 export default function CreatePostsScreen({ route, navigation }) {
     const cameraRef= useRef(null);
     const [photoBase64, setPhotoBase64] = useState(null);

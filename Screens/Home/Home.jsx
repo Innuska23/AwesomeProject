@@ -2,7 +2,7 @@ import React from "react";;
 import { Ionicons, Feather } from "@expo/vector-icons";
 import PostsScreen from "../PostsScreen/PostsScreen";
 import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
-import ProfileScreen from "../ProfileScreen";
+import ProfileScreen from "../ProfileScreen/ProfileScreen";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation, useRoute } from "@react-navigation/native";

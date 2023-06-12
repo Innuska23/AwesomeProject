@@ -2,8 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {TouchableOpacity, FlatList, Text, Image} from 'react-native';
 import {ContainerPostScreen, LocationText, Photo, PhotoContainer, PhotoName, NameEmailWrapper, Email, Name, WrapperPostScreen, AvatarPost, CommentContainer} from './PostsScreen.styled';
 import { Ionicons } from '@expo/vector-icons';
+import { useDispatch } from "react-redux";
+import { authSignOut } from "../../redux/auth/authOperations";
 
 export default function PostsScreen({ route, navigation }) {
+    const dispatch = useDispatch();
+    const signOut = () => {
+    dispatch(authSignOut());
+    };
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
