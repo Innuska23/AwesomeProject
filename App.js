@@ -9,6 +9,8 @@ import styled from '@emotion/native';
 import Home from './Screens/Home/Home';
 import MapScreen from './Screens/MapScreen/MapScreen';
 import CommentsScreen from './Screens/CommentsScreen';
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,36 +26,38 @@ export default function App() {
   const MainStack = createStackNavigator();
 
   return (
-    <StyledApp>
-      <NavigationContainer>
-        <MainStack.Navigator initialRouteName="Login">
-          <MainStack.Screen
-            name="Registration"
-            component={RegistrationScreen}
-            options={{ headerShown: false }} />
-          <MainStack.Screen
-            name="Login"
-            component={LoginScreen} 
-            options={{ headerShown: false }}
+    <Provider store={store}>
+      <StyledApp>
+        <NavigationContainer>
+          <MainStack.Navigator initialRouteName="Login">
+            <MainStack.Screen
+              name="Registration"
+              component={RegistrationScreen}
+              options={{ headerShown: false }} />
+            <MainStack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
             />
-          <MainStack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
-          <MainStack.Screen
-            name="MapScreen"
-            component={MapScreen}
-            options={{ headerShown: false }}
-          />
-          <MainStack.Screen
-            name="Comments"
-            component={CommentsScreen}
-            options={{ headerShown: false }}
-          />
-        </MainStack.Navigator>
-      </NavigationContainer>
-    </StyledApp>
+            <MainStack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
+            <MainStack.Screen
+              name="MapScreen"
+              component={MapScreen}
+              options={{ headerShown: false }}
+            />
+            <MainStack.Screen
+              name="Comments"
+              component={CommentsScreen}
+              options={{ headerShown: false }}
+            />
+          </MainStack.Navigator>
+        </NavigationContainer>
+      </StyledApp>
+    </Provider>
   )
 };
 
