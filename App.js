@@ -1,16 +1,10 @@
 import { useFonts } from 'expo-font'
-import 'react-native-gesture-handler';
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-
-import RegistrationScreen from './Screens/RegistrationScreen';
-import LoginScreen from './Screens/LoginScreen';
 import styled from '@emotion/native';
-import Home from './Screens/Home/Home';
-import MapScreen from './Screens/MapScreen/MapScreen';
-import CommentsScreen from './Screens/CommentsScreen';
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { Main } from './Main';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect, useCallback } from 'react';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -19,16 +13,27 @@ export default function App() {
     'Roboto-Bold': require('./assets/fonts//Roboto-Bold.ttf'),
   });
 
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
   if (!fontsLoaded) {
     return null;
   }
 
-  const MainStack = createStackNavigator();
-
   return (
     <Provider store={store}>
       <StyledApp>
-        <NavigationContainer>
+        {/* <NavigationContainer>
           <MainStack.Navigator initialRouteName="Login">
             <MainStack.Screen
               name="Registration"
@@ -55,7 +60,8 @@ export default function App() {
               options={{ headerShown: false }}
             />
           </MainStack.Navigator>
-        </NavigationContainer>
+        </NavigationContainer> */}
+        <Main />
       </StyledApp>
     </Provider>
   )

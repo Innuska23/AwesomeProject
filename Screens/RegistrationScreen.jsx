@@ -7,10 +7,26 @@ import { ButtonRegistation, ButtonText, ContainerText, IconPlus, LinkText, Photo
 import { useNavigation } from '@react-navigation/native';
 import { authSignUp } from "../redux/auth/authOperations";
 import { useDispatch } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
+
+
+const avatarSelect = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+    });
+
+    if (!result.canceled) {
+        setAvatar(result.assets[0].uri);
+    }
+};
 
 const initialState = {
     email: "temp@mail.com",
     password: "123456",
+    username: "",
 }
 
 export default RegistrationScreen = () => {
@@ -51,7 +67,7 @@ export default RegistrationScreen = () => {
     return <AuthLayout heightKeyboard={heightKeyboard}>
         <PhotoWrapper>
             <Photo resizeMode="cover" />
-            <IconPlus source={require('../assets/images/add.png')} />
+            <IconPlus source={require('../assets/images/add.png')} onPress={() => avatarSelect()} />
         </PhotoWrapper>
 
         <ContainerText $mt='60'>
@@ -65,13 +81,14 @@ export default RegistrationScreen = () => {
         <PasswordInput placeholder="Пароль" value={user.password} onChangeText={handleFieldChange('password')} />
 
         {!heightKeyboard && <>
-            <ButtonRegistation onPress={handleSignUp}>
+            <ButtonRegistation onPress={handleSignUp} activeOpacity={0.7}>
                 <ButtonText>Зареєструватись</ButtonText>
             </ButtonRegistation>
 
             <StyledWrapperText $mb="12">
                 <LinkText>Вже є акаунт? <TextAutorization onPress={() => navigation.navigate("Login")}>Увійти</TextAutorization></LinkText>
             </StyledWrapperText>
-        </>}
-    </AuthLayout>
+        </>
+        }
+    </AuthLayout >
 };

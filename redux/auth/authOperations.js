@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 
 import { authSlice } from "./authReducer";
+const { updateUser, authStateChange, authSignOut } = authSlice.actions;
 
 export const authSignUp =
     ({ login, email, password }) =>
@@ -40,13 +41,13 @@ export const authSignIn =
                 return error
             }
         };
-export const authSignOut = () => async (dispatch, getState) => {
-    signOut(auth);
+export const authSignOutUser = () => async (dispatch, getState) => {
+    await signOut(auth);
     dispatch(authSlice.actions.authSignOut());
 };
 
 export const onAuthStateChanged = () => async (dispatch, getState) => {
-    auth.onAuthStateChanged((user) => {
+    await auth.onAuthStateChanged((user) => {
         if (user) {
             dispatch(
                 authSlice.actions.updateUser({

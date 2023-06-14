@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 const initialState = {
     email: "temp@mail.com",
     password: "123456",
+    login: '',
 }
 export default LoginScreen = () => {
     const dispatch = useDispatch();
