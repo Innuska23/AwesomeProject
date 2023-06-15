@@ -10,7 +10,7 @@ import Home from './Screens/Home/Home';
 const AuthStack = createNativeStackNavigator();
 const MainTab = createBottomTabNavigator();
 
-export default function useRoute(isAuth) {
+export default function getR(isAuth) {
     if (!isAuth) {
         return (
             <AuthStack.Navigator

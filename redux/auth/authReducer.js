@@ -1,29 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { authSignIn, authSignOut, authSignUp } from './authOperations';
 
 const initialState = {
-    userId: null,
-    login: null,
-    email: null,
-    stateChange: false,
+  username: null,
+  email: null,
+  isLogin: false,
 };
 
 export const authSlice = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
-        updateUser(state, { payload }) {
-            state.userId = payload.userId;
-            state.login = payload.login;
-            state.email = payload.email;
-        },
-        authStateChange(state, { payload }) {
-            state.stateChange = payload.stateChange;
-        },
-        authSignOut(state) {
-            state.userId = null;
-            state.login = null;
-            state.email = null;
-            state.stateChange = false;
-        },
-    },
+  name: 'auth',
+  initialState,
+  extraReducers: (builder) => {
+    builder.addCase(authSignIn.fulfilled, (state, action) => {
+      state.username = action.payload.username;
+      state.email = action.payload.email;
+      state.isLogin = true;
+    });
+
+    builder.addCase(authSignOut.fulfilled, (state) => {
+      state.username = null;
+      state.email = null;
+      state.isLogin = false;
+    });
+
+    builder.addCase(authSignUp.fulfilled, (state, action) => {
+      state.username = action.payload.username;
+      state.email = action.payload.email;
+      state.isLogin = true;
+    });
+  },
 });
