@@ -10,7 +10,7 @@ import ProfileScreen from '../../../Screens/ProfileScreen/ProfileScreen';
 import { ButtonHome, ButtonLogOut, TextItem } from './AppRoutes.styled';
 import { useDispatch } from 'react-redux';
 import { authSignOut } from '../../../redux/auth/authOperations';
-import CommentsScreen from '../../../Screens/CommentsScreen';
+import CommentsScreen from '../../../Screens/CommentsScreen/CommentsScreen';
 
 const Tabs = createBottomTabNavigator();
 

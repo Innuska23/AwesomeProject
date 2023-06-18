@@ -76,7 +76,7 @@ const ProfileScreen = ({ route, navigation }) => {
                     <UserLogin>{login}</UserLogin>
                 </UserTextWrap>
                 {/* <TouchableOpacity style={styles.logOutBtn} onPress={signOut}> */}
-                    {/* <Image source={require("../../assets/img/logOut.png")} /> */}
+                {/* <Image source={require("../../assets/img/logOut.png")} /> */}
                 {/* </TouchableOpacity> */}
             </UserInfo>
             <FlatList
@@ -85,7 +85,7 @@ const ProfileScreen = ({ route, navigation }) => {
                 renderItem={({ item }) => (
                     <PostWrap>
                         <ImgWrap>
-                            <PhotoProfile source={{ uri: item.photo }}/>
+                            <PhotoProfile source={{ uri: item.photo }} />
                         </ImgWrap>
 
                         <MessageProfile>{item.message}</MessageProfile>
@@ -119,21 +119,5 @@ const ProfileScreen = ({ route, navigation }) => {
         </ProfileContainer>
     );
 };
-
-// const styles = StyleSheet.create({
-    // logOutBtn: {
-    //     position: "absolute",
-    //     right: 16,
-    // },
-//     locationInfo: {
-//         flexDirection: "row",
-//     },
-//     message: {
-//         fontFamily: "Roboto-Medium",
-//         fontSize: 16,
-//         color: "#212121",
-//         marginBottom: 10,
-//     },
-// });
 
 export default ProfileScreen;
