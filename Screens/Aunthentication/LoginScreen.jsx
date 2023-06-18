@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { AuthLayout } from '../components/AuthLayout';
-import { StyledInput } from '../components/Input';
-import { StyledLink } from '../components/Link';
-import { PasswordInput } from '../components/PasswordInput';
-import { useKeyboard } from '../hooks/useKeyboard';
+import { AuthLayout } from '../../components/AuthLayout';
+import { StyledInput } from '../../components/Input';
+import { StyledLink } from '../../components/Link';
+import { PasswordInput } from '../../components/PasswordInput';
+import { useKeyboard } from '../../hooks/useKeyboard';
 import {
   ButtonRegistation,
   ButtonText,
@@ -14,7 +14,7 @@ import {
 } from './componets.styled';
 import { useNavigation } from '@react-navigation/native';
 
-import { authSignIn } from '../redux/auth/authOperations';
+import { authSignIn } from '../../redux/auth/authOperations';
 import { useDispatch } from 'react-redux';
 
 const initialState = {

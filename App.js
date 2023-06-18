@@ -1,6 +1,7 @@
 import { useFonts } from 'expo-font';
 import styled from '@emotion/native';
 import { Provider } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { store } from './redux/store';
 import { Router } from './components/Routing/Router';
@@ -18,9 +19,11 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StyledApp>
-        <Router />
-      </StyledApp>
+      <SafeAreaView>
+        <StyledApp>
+          <Router />
+        </StyledApp>
+      </SafeAreaView>
     </Provider>
   );
 }

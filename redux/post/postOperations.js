@@ -12,7 +12,6 @@ export const createNewPost = createAsyncThunk(
       const { email, username } = getState().auth;
       const newPost = { email, name, cords, photoBase64, location };
       const result = await push(ref(database, 'posts'), newPost);
-      console.log('🚀 ~ file: postOperations.js:15 ~ result:', result);
 
       return {};
     } catch (e) {
@@ -44,17 +43,18 @@ export const createNewComment = createAsyncThunk(
   'post/createNewComment',
   async ({ id, comment }, { rejectWithValue }) => {
     try {
-      const { uid } = auth.currentUser;
+      const { uid, displayName } = auth.currentUser;
 
       const newComment = {
         uid,
+        displayName,
         comment,
         created_at: Date.now(),
       };
 
-      const result = await push(ref(database, 'comments/' + id), newComment);
+      await push(ref(database, 'comments/' + id), newComment);
 
-      return result;
+      return;
     } catch (e) {
       return rejectWithValue(e?.message ?? defaultErrorMessage);
     }

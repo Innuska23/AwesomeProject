@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 
 import PostsScreen from '../../../Screens/PostsScreen/PostsScreen';
@@ -11,10 +12,12 @@ import { ButtonHome, ButtonLogOut, TextItem } from './AppRoutes.styled';
 import { useDispatch } from 'react-redux';
 import { authSignOut } from '../../../redux/auth/authOperations';
 import CommentsScreen from '../../../Screens/CommentsScreen/CommentsScreen';
+import MapScreen from '../../../Screens/MapScreen/MapScreen';
 
-const Tabs = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
-const NavigationConfig = {
+const TabNavigationConfig = {
   headerStyle: {
     borderBottomWidth: 1,
     borderColor: '#E5E5E5',
@@ -37,13 +40,24 @@ const NavigationConfig = {
   },
 };
 
-export const AppRoutes = () => {
+const TabRoutes = () => {
   const navigation = useNavigation();
-  console.log(
-    '🚀 ~ file: AppRoutes.jsx:42 ~ AppRoutes ~ navigation:',
-    navigation.getCurrentRoute()
-  );
+
   const dispatch = useDispatch();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      navigation.setOptions({
+        headerShown: false,
+      });
+
+      return () => {
+        navigation.setOptions({
+          headerShown: true,
+        });
+      };
+    }, [])
+  );
 
   const handleLogout = async () => {
     try {
@@ -54,8 +68,8 @@ export const AppRoutes = () => {
   };
 
   return (
-    <Tabs.Navigator initialRouteName="PostsScreen" screenOptions={NavigationConfig}>
-      <Tabs.Screen
+    <Tab.Navigator initialRouteName="PostsScreen" screenOptions={TabNavigationConfig}>
+      <Tab.Screen
         name="PostsScreen"
         component={PostsScreen}
         options={{
@@ -69,7 +83,7 @@ export const AppRoutes = () => {
           tabBarIcon: ({ color }) => <Ionicons name="ios-grid-outline" size={24} color={color} />,
         }}
       />
-      <Tabs.Screen
+      <Tab.Screen
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
@@ -83,7 +97,7 @@ export const AppRoutes = () => {
           tabBarIcon: ({ color }) => <Ionicons name="add" size={24} color={color} />,
         }}
       />
-      <Tabs.Screen
+      <Tab.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
@@ -96,21 +110,24 @@ export const AppRoutes = () => {
           tabBarIcon: ({ color }) => <Feather name="user" size={24} color={color} />,
         }}
       />
+    </Tab.Navigator>
+  );
+};
 
-      <Tabs.Screen
+export const AppRoutes = () => {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={TabRoutes} />
+      <Stack.Screen
         name="Comments"
         component={CommentsScreen}
-        options={{
-          headerTitle: () => <TextItem>Коментарі</TextItem>,
-
-          headerLeft: () => (
-            <ButtonHome onPress={() => navigation.navigate('PostsScreen')}>
-              <Ionicons name="arrow-back-outline" size={24} color="#212121" />
-            </ButtonHome>
-          ),
-          tabBarIcon: ({ color }) => <Ionicons name="add" size={24} color={color} />,
-        }}
+        options={{ headerTitle: () => <TextItem>Публікації</TextItem> }}
       />
-    </Tabs.Navigator>
+      <Stack.Screen
+        name="MapScreen"
+        component={MapScreen}
+        options={{ headerTitle: () => <TextItem>Карта</TextItem> }}
+      />
+    </Stack.Navigator>
   );
 };
